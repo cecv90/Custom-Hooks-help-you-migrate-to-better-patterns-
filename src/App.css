@@ -1,0 +1,10 @@
+.App {
+  display: grid;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  background-color: #61dafb;
+  min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+  width: 100vw; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
+  margin: 0; /* Elimina márgenes predeterminados del body */
+}
+
