@@ -1,41 +1,57 @@
-import React, { useState, useCallback } from 'react';
-import './App.css';
+import { useOnlineStatus } from "./useOnlineStatus";
+import "./App.css";
 
-// TaskList Component 
-function TaskList({ tasks, onTaskAdded }) {
+/* Component that displays the user's online status.
+* 
+* returns {JSX.Element} - A heading indicating whether the user is online or disconnected.
+*/
+
+function StatuBar() {
+  const isOnline = useOnlineStatus();
+  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>
+}
+
+/**
+ * Save button component that allows saving progress only when online.
+ * 
+ * The button is disabled when the user is offline.
+ * 
+ * returns {JSX.Element} - A button that saves progress when clicked.
+*/
+
+function SaveButton() {
+  const isOnline = useOnlineStatus();
+  
+  /**
+   * Handles the click event on the save button.
+   * Logs a message indicating progress has been saved.
+  */
+ 
+  function handleSaveClick() {
+    console.log('✅ Progress Saved');
+  }
+
   return (
-    <ul>
-      {tasks.map((task) => (
-        <li key={task.id}>{task.text}</li>
-      ))}
-    </ul>
+    <button
+      disabled={!isOnline}
+      onClick={handleSaveClick}
+    >
+      {isOnline ? 'Save progress' : 'Reconnecting...'}
+    </button>
   );
 }
 
-function App() {
-  // State to hold the list of tasks
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Go grocery shopping' },
-    { id: 2, text: 'Do the laundry' },
-  ]);
+/**
+ * Main application component that renders the SaveButton and StatusBar components.
+ * 
+ * returns {JSX.Element} - The main app structure.
+*/
 
-  // useCallback hook to avoid unnecessary re-renders when adding tasks
-  const onTaskAdded = useCallback((newTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
-  }, []);
-
+export default function App() {
   return (
     <div className="App">
-      <h1>Task List</h1>
-      {/* Pass the list of tasks and the handler to the TaskList component */}
-      <TaskList tasks={tasks} onTaskAdded={onTaskAdded} />
-      {/* Button to add a new task */}
-      <button onClick={() => onTaskAdded({ id: 3, text: 'Take out the trash' })}>
-        Add Task
-      </button>
+      <SaveButton />
+      <StatuBar />
     </div>
-  );
+  )
 }
-
-export default App;
-

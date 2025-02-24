@@ -1,10 +1,18 @@
 .App {
-  display: grid;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #61dafb;
-  min-height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
-  width: 100vw; /* Asegura que el contenedor ocupe todo el ancho de la pantalla */
-  margin: 0; /* Elimina márgenes predeterminados del body */
+  min-height: 100vh;
+  margin: 0;
+  gap: 10px; /* Ajusta el espacio entre los elementos */
 }
 
+.App h1 {
+  margin: 0; /* Elimina el margen predeterminado del h1 */
+}
+
+.App button {
+  margin: 0; /* Elimina el margen predeterminado del botón */
+}
